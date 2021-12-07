@@ -1,0 +1,56 @@
+{% extends 'core/index.html' %}
+
+
+{% block title %}
+      Search
+{% endblock %}
+
+
+{% block main %}
+      <div class="container">
+            <section class="search">
+                  <div class="search__content">
+                        <h1 class="search__title">Search Books</h1>
+                        <h3 class="search__subtitle">Find the book of your dream!</h3>
+                  </div>
+                  <form action="" class="search__form">
+
+                        <input class="search__input" type="text" name="q" />
+                        <input class="search__submit" type="submit" value="Найти" />
+                  </form>
+            </section>
+            <section class="results">
+                  <div class="results__message-wrapper">
+                        <h3 class="results__message">{{message}}</h3>
+                  </div>
+                  <div class="results__wrapper">
+                        
+                        {% for book in books %}
+                              <article class="results__card book-card">
+                                    <div class="book-card__image-wrapper">
+                                          <img class="book-card__image" src="{{book.image}}" alt="{{book.title}}">
+                                    </div>
+                                    <div class="book-card__content-wrapper">
+                                          <a href="{{book.url}}?img={{book.image}}" class="book-card__title">{{book.title}}</a>
+                                          <p class="book-card__author">{{book.author_name}}</p>
+                                          <button data-access="{{request.user.is_authenticated}}" type="submit" form="{{book.key}}" class="book-card__submit">Добавить в избранные</button>
+                                    </div>
+                                    <form id="{{book.key}}" method="POST" action="{% url 'books:add_to_favourite' %}" class="book-card__form">
+                                          {% csrf_token %}
+                                          <input type="hidden" value="{{book.key}}" name="key">
+                                          <input type="hidden" name="title" value="{{book.title}}" />
+                                          <input type="hidden" name="author_name" value="{{book.author_name}}" />
+                                          <input type="hidden" name="image" value="{{book.image}}" />
+                                    </form>
+                              </article>
+
+                        {% endfor %}
+
+                  </div>
+            </section>
+      </div>
+{% endblock %}
+
+
+{% block js %}
+{% endblock js %}

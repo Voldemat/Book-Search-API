@@ -1,0 +1,39 @@
+{% extends 'core/index.html' %}
+
+
+{% block title %}
+      {{book.title}}
+{% endblock %}
+
+
+{% block main %}
+      <section class="detail">
+            <div class="detail__wrapper">
+                  <h1 class="detail__title">{{book.title}}</h1>
+                  <h3 class="detail__author">{{book.author_name}}</h3>
+                  <img src="{{book.image}}" alt="" />
+                  <p class="detail__created">
+                        {% if book.first_publish_date %}
+                              {{book.first_publish_date}}
+                        {% else %}
+                              {{book.created}}
+                        {% endif %}
+                        </p>
+                  <p class="detail__description">{{book.description}}</p>
+
+                 
+                  <form id="{{book.key}}" method="POST" action="{% url 'books:add_to_favourite' %}" class="detail__form">
+                        {% csrf_token %}
+                        {% if book.delete_url %}
+                              <a href="{{book.delete_url}}" class="book-card__delete">Remove book</a>
+                        {% else %}
+                        <button data-access="{{request.user.is_authenticated}}" type="submit" form="{{book.key}}" class="book-card__submit">Добавить в избранные</button>
+                        <input type="hidden" value="{{book.key}}" name="key">
+                        <input type="hidden" name="title" value="{{book.title}}" />
+                        <input type="hidden" name="author_name" value="{{book.author_name}}" />
+                        <input type="hidden" name="image" value="{{book.image}}" />
+                        {% endif %}
+                  </form>
+            </div>
+      </section>
+{% endblock %}

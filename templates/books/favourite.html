@@ -1,0 +1,36 @@
+{% extends 'core/index.html' %}
+
+
+{% block title %}
+      Favoutire Books
+{% endblock %}
+
+
+{% block main %}
+<div class="container">
+      <section class="results">
+            
+            <div class="results__message-wrapper results__message-wrapper_m">
+                  <h1 class="results__message">Favourite Books</h1>
+                  <h3 class="results__message">{{message}}</h3>
+            </div>
+            <div class="results__wrapper results-wrapper_start">
+                  
+                  {% for book in books %}
+                        <article class="results__card book-card">
+                              <div class="book-card__image-wrapper">
+                                    <img class="book-card__image" src="{{book.image}}" alt="{{book.title}}" />
+                              </div>
+                              <div class="book-card__content_wrapper">
+                                    <a href="{{book.get_absolute_url}}" class="book-card__title">{{book.title}}</a>
+                                    <p class="book-card__author">{{book.author_name}}</p>
+
+                                    <a href="{{book.get_delete_url}}" class="book-card__delete">Remove book</a>
+                              </div>
+                        </article>
+                  {% endfor %}
+
+            </div>
+      </section>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'core/index.html' %}
+
+
+{% block title %}
+      Login
+{% endblock %}
+
+
+{% block main %}
+      <div class="container">
+            <section class="search">
+                  <form class="signup__form" action="" method="POST">
+                        {% csrf_token %}
+                        <h1>Login</h1>
+                        {{form.user_error}}
+                        {{form}}
+                        <input type="submit" value="Войти" />
+                  </form>
+            </section>
+            
+      </div>
+{% endblock %}
