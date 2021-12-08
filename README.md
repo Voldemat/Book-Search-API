@@ -1,9 +1,9 @@
-# Book-Search-API
+# Book Search API
 
 ## Developer: Vladimir Vojtenko 
 
 Book search Django web project that uses requests python library and openlibrary API. 
-
+#requests #openlibrary #django
 
 OpenLibraryAPI: https://openlibrary.org/developers/api
 
